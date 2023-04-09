@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits, Message } = require("discord.js");
+const { Client, GatewayIntentBits, EmbedBuilder } = require("discord.js");
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -18,6 +18,19 @@ client.on("messageCreate", (msg) => {
   if (msg.content === "ping") {
     msg.reply("pong");
   }
+
+  if (msg.content === "embed") {
+    const embed = new EmbedBuilder()
+      .setTitle("Embed title")
+      .setDescription("this is a description")
+      .setColor("Random")
+      .addFields(
+        { name: "field title", value: "some random title", inline: true },
+        { name: "2nd field title", value: "some random value", inline: true }
+      );
+
+    msg.channel.send({ embeds: [embed] });
+  }
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -31,6 +44,19 @@ client.on("interactionCreate", async (interaction) => {
     const num1 = interaction.options.get("first-number")?.value;
     const num2 = interaction.options.get("second-number")?.value;
     interaction.reply(`the sum is ${num1 + num2}`);
+  }
+
+  if (interaction.commandName === "embed") {
+    const embed = new EmbedBuilder()
+      .setTitle("Embed title")
+      .setDescription("this is a description")
+      .setColor("Random")
+      .addFields(
+        { name: "field title", value: "some random title", inline: true },
+        { name: "2nd field title", value: "some random value", inline: true }
+      );
+
+    interaction.reply({ embeds: [embed] });
   }
 });
 

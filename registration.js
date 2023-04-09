@@ -38,6 +38,10 @@ const commands = [
       },
     ],
   },
+  {
+    name: "embed",
+    description: "send an embed",
+  },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.BOT_TOKEN);
